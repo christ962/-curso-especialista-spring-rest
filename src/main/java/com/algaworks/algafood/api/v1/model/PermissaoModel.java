@@ -1,19 +1,24 @@
 package com.algaworks.algafood.api.v1.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
 import lombok.Getter;
 import lombok.Setter;
+
 @Relation(collectionRelation = "permissoes")
 @Setter
 @Getter
 public class PermissaoModel extends RepresentationModel<PermissaoModel> {
 
-	private Long id;
+    @Schema(example = "1")
+    private Long id;
 
-	private String nome;
+    @Schema(example = "CONSULTAR_COZINHAS")
+    private String nome;
 
-	private String descricao;
+    @Schema(example = "Permite consultar cozinhas")
+    private String descricao;
 
 }

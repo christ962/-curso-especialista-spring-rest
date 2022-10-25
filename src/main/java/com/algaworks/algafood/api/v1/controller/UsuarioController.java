@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +31,7 @@ import com.algaworks.algafood.domain.repository.UsuarioRepository;
 import com.algaworks.algafood.domain.service.CadastroUsuarioService;
 
 @RestController
-@RequestMapping(path = "/usuarios")
+@RequestMapping(path = "/v1/usuarios")
 public class UsuarioController implements UsuarioControllerOpenApi {
 
 	@Autowired
@@ -84,8 +85,10 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarPropriaSenha
     @PutMapping(path = "/{usuarioId}/senha", produces = {})
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void alterarSenha(@PathVariable Long usuarioId, @RequestBody @Valid SenhaInput senha) {
+	public ResponseEntity<Void> alterarSenha(@PathVariable Long usuarioId, @RequestBody @Valid SenhaInput senha) {
 		cadastroUsuario.alterarSenha(usuarioId, senha.getSenhaAtual(), senha.getSenhaNova());
+
+	    return ResponseEntity.noContent().build();
 	}
 
 }

@@ -17,18 +17,16 @@ import javax.validation.constraints.PositiveOrZero;
 
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = {FileContentTypeValidator.class })
-@PositiveOrZero
+@Constraint(validatedBy = { FileSizeValidator.class })
 public @interface FileSize {
 
-	
-	String message() default "arquivo inválido";
+
+	String message() default "tamanho do arquivo inválido";
 
 	Class<?>[] groups() default { };
 
 	Class<? extends Payload>[] payload() default { };
-	
-	String allowed();
 
 	String max();
+
 }

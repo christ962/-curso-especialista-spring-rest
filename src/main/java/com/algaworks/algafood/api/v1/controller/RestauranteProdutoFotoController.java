@@ -51,29 +51,29 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
 	
 	@Autowired
 	private FotoProdutoModelAssembler fotoProdutoModelAssembler;
-	
-	
+
+
 	@CheckSecurity.Restaurantes.PodeGerenciarFuncionamento
+	@Override
 	@PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public FotoProdutoModel atualizarFoto(@PathVariable Long restauranteId,
-			@PathVariable Long produtoId, @Valid FotoProdutoInput fotoProdutoInput,
-			@RequestPart(required = true) MultipartFile arquivo) throws IOException {
+										  @PathVariable Long produtoId, @Valid FotoProdutoInput fotoProdutoInput) throws IOException {
 		Produto produto = cadastroProduto.buscarOuFalhar(restauranteId, produtoId);
-		
-//		MultipartFile arquivo = fotoProdutoInput.getArquivo();
-		
+
+		MultipartFile arquivo = fotoProdutoInput.getArquivo();
+
 		FotoProduto foto = new FotoProduto();
 		foto.setProduto(produto);
 		foto.setDescricao(fotoProdutoInput.getDescricao());
 		foto.setContentType(arquivo.getContentType());
 		foto.setTamanho(arquivo.getSize());
 		foto.setNomeArquivo(arquivo.getOriginalFilename());
-		
+
 		FotoProduto fotoSalva = catalogoFotoProduto.salvar(foto, arquivo.getInputStream());
-		
+
 		return fotoProdutoModelAssembler.toModel(fotoSalva);
 	}
-	
+
 	@CheckSecurity.Restaurantes.PodeGerenciarFuncionamento
     @Override
 	@DeleteMapping
@@ -134,10 +134,5 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
 		}
 	}
 
-	@Override
-	public FotoProdutoModel atualizarFoto(Long restauranteId, Long produtoId, FotoProdutoInput fotoProdutoInput)
-			throws IOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }
