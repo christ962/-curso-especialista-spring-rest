@@ -74,19 +74,20 @@ public class AuthorizationServerConfig {
                 .clientId("algafood-web")
                 .clientSecret(passwordEncoder.encode("web123"))
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .scope("READ")
                 .scope("WRITE")
                 .tokenSettings(TokenSettings.builder()
                         .accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED)
                         .accessTokenTimeToLive(Duration.ofMinutes(15))
                         .build())
-                .redirectUri("http://localhost:8080/authorized")
-                .redirectUri("http://localhost:8080/swagger-ui/oauth2-redirect.html")
+                .redirectUri("http://127.0.0.1:8080/authorized")
+                .redirectUri("http://127.0.0.1:8080/swagger-ui/oauth2-redirect.html")
                 .clientSettings(ClientSettings.builder()
                         .requireAuthorizationConsent(true)
                         .build())
                 .build();
+
 
         RegisteredClient foodanalytics = RegisteredClient
                 .withId("3")

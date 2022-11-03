@@ -16,9 +16,8 @@ import java.net.http.HttpClient;
 public class ResourcesServerConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-
-        http.authorizeHttpRequests()
+    public SecurityFilterChain resourceServerFilterChain(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
                 .antMatchers("/oauth2/**").authenticated()
                 .and()
                 .csrf().disable()
@@ -26,6 +25,5 @@ public class ResourcesServerConfig {
                 .oauth2ResourceServer().jwt();
 
         return http.formLogin(Customizer.withDefaults()).build();
-
     }
 }
