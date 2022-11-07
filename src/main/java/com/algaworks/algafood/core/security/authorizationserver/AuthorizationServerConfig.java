@@ -52,7 +52,7 @@ public class AuthorizationServerConfig {
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SecurityFilterChain authFilterChain(HttpSecurity http) throws Exception {
-     //   OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+        //   OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
 
         OAuth2AuthorizationServerConfigurer<HttpSecurity> authorizationServerConfigurer =
                 new OAuth2AuthorizationServerConfigurer<>();
@@ -128,8 +128,13 @@ public class AuthorizationServerConfig {
     }
 
     @Bean
-    public OAuth2AuthorizationConsentService consentService(JdbcOperations jdbcOperations, RegisteredClientRepository clientRepository){
+    public OAuth2AuthorizationConsentService consentService(JdbcOperations jdbcOperations, RegisteredClientRepository clientRepository) {
         return new JdbcOAuth2AuthorizationConsentService(jdbcOperations, clientRepository);
+    }
+
+    @Bean
+    public OAuth2AuthorizationQueryService oAuth2AuthorizationQueryService(JdbcOperations jdbcOperations) {
+        return new JdbcOAuth2AuthorizationQueryService(jdbcOperations);
     }
 
 }
