@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface OAuth2AuthorizationQueryService {
 
-  List<RegisteredClient> listClientWithConsent(String principalName);
-
+  List<RegisteredClient> listClientsWithConsent(String principalName);
+  List<OAuth2Authorization> listAuthorizations(String principalName, String clientId);
 }
